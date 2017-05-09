@@ -1,19 +1,31 @@
+/*jshint esversion: 6 */
 angular.module('app')
-  .controller('createUserCtrl',
-    ['$scope', '$location', 'UserService',
-    function($scope, $location, UserService){
+  .controller('UsersCtrl', ['$scope', '$rootScope', 'UserService',
+    function($scope,$rootScope,UserService){
+      $scope.userList = UserService;
+      $scope.user = UserService.getUser();
+      $scope.list = [];
+      $scope.list.push($scope.user);
+      console.log($scope.user);
 
-      $scope.createUser = function(username) {
-        UserService.addUser(createUserObj(username))
-          .then(response => {
-            localStorage.setItem('user', response.data.name);
-            localStorage.setItem('user_id', response.data.id);
-            $location.path('/');
-            location.reload();
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      };
+    }])
+  .controller('TopicCtrl', ['$scope', 'TopicService',
+    function($scope,$rootScope,TopicService){
+      console.log(TopicService);
+      // TopicService.getTopics()
+      //   .then(data => {
+      //     console.log(data);
+      //     $scope.topics = data.data;
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
+    }])
+
+
+
+  .controller('MessageCtrl', ['$scope',
+    function($scope) {
+      $scope.Message = "is it working right now";
     }
   ]);

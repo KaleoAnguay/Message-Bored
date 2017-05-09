@@ -1,17 +1,17 @@
 /*jshint esversion: 6*/
 const express = require('express');
-const users = express.Router();
+const topics = express.Router();
 const { User, Topic, Message } = require('../../models');
 
-users.get('/', (req, res) => {
-  User.all()
-    .then(users => {
-      res.json(users);
+topics.get('/', (req, res) => {
+  Topic.all()
+    .then(topics => {
+      res.json(topics);
     });
 });
 
-users.post('/', (req, res) => {
-  User.create(req.body)
+topics.post('/', (req, res) => {
+  Topic.create(req.body)
     .then( data => {
       res.json(data);
     })
@@ -20,10 +20,10 @@ users.post('/', (req, res) => {
     });
 });
 
-users.get('/:username', (req, res) => {
-  User.all({
+topics.get('/:Topicname', (req, res) => {
+  Topic.all({
     where: {
-      name: req.params.username
+      name: req.params.Topicname
     }})
     .then(data => {
       res.json(data);
@@ -34,4 +34,4 @@ users.get('/:username', (req, res) => {
 });
 
 
-module.exports = users;
+module.exports = topics;

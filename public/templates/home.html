@@ -1,5 +1,10 @@
-<h1>Home</h1>
-<p>is it working</p>
-<div> {{topicScope}}</div>
-
-<div>{{controllerAsTest}}</div>
+<div ng-repeat="topic in topics">
+  <a ng-href="/topics/{{topic.id}}"><h1>{{topic.name}}</h1></a>
+  <h4>by: {{topic.Creator.name}}</h4>
+</div>
+<div ng-if="!loggedIn">
+  <h1><a href="/users">Login Or Create Account to Create Topic</a></h1>
+</div>
+<div ng-if="loggedIn">
+  <input type="text" ng-model="topicName">
+  <input type="submit" ng-click="createTopic(topicName)" value="Create New Topic">
