@@ -1,13 +1,19 @@
 angular.module('app')
-  .controller('UsersCtrl', ['$scope', '$rootScope', 'UserService',
-    function($scope,$rootScope,UserService){
-      $scope.testScope = "hello scope";
-      this.controllerAsTest = "hello controllerAs";
-      localStorage.testLS = "hello";
-    }])
-  .controller('TopicCtrl', ['$scope',
-    function($scope){
-      $scope.topicScope = "hello fsdfsdfscope";
-      this.controllerAsTest = "hello controllerAs";
-      localStorage.testLS = "hello";
-    }]);
+  .controller('createUserCtrl',
+    ['$scope', '$location', 'UserService',
+    function($scope, $location, UserService){
+
+      $scope.createUser = function(username) {
+        UserService.addUser(createUserObj(username))
+          .then(response => {
+            localStorage.setItem('user', response.data.name);
+            localStorage.setItem('user_id', response.data.id);
+            $location.path('/');
+            location.reload();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      };
+    }
+  ]);
